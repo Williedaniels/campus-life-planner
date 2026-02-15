@@ -1,0 +1,401 @@
+/* ============================================
+   Animations & Transitions
+   ============================================ */
+
+/* ============================================
+   Fade In Animation
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   Slide Up Animation
+   ============================================ */
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   Slide In Animation (from right)
+   ============================================ */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================
+   Slide Out Animation (to right)
+   ============================================ */
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+/* ============================================
+   Bounce Animation
+   ============================================ */
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ============================================
+   Pulse Animation
+   ============================================ */
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ============================================
+   Highlight Animation
+   ============================================ */
+
+@keyframes highlight {
+    0% {
+        background-color: #ffff00;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+/* ============================================
+   Spin Animation
+   ============================================ */
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Shake Animation (for errors)
+   ============================================ */
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* ============================================
+   Scale In Animation
+   ============================================ */
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   Applied Animations
+   ============================================ */
+
+/* Page transitions */
+.page {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal animations */
+.modal.active .modal-content {
+    animation: slideUp 0.3s ease-in-out;
+}
+
+/* Toast animations */
+.toast {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+.toast.removing {
+    animation: slideOut 0.3s ease-in-out forwards;
+}
+
+/* Button hover animations */
+.btn {
+    transition: all 0.15s ease-in-out;
+}
+
+.btn:active {
+    animation: bounce 0.2s ease-out;
+}
+
+/* Card hover animations */
+.stat-card,
+.task-card,
+.upcoming-item,
+.settings-section {
+    transition: all 0.15s ease-in-out;
+}
+
+/* Search highlight animation */
+mark {
+    animation: highlight 0.5s ease-in-out;
+}
+
+/* Form input focus animation */
+.form-control {
+    transition: all 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    animation: scaleIn 0.15s ease-in-out;
+}
+
+/* Sort button active animation */
+.sort-btn.active {
+    animation: scaleIn 0.15s ease-in-out;
+}
+
+/* Error shake animation */
+.form-control.error {
+    animation: shake 0.3s ease-in-out;
+}
+
+/* Loading spinner animation */
+.loading {
+    animation: spin 1s linear infinite;
+}
+
+/* Progress bar animation */
+.cap-progress {
+    transition: width 0.3s ease-in-out;
+}
+
+/* Smooth color transitions */
+.cap-progress.warning {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.cap-progress.danger {
+    animation: pulse 0.5s ease-in-out infinite;
+}
+
+/* Navigation link animation */
+.nav-link {
+    position: relative;
+    transition: color 0.15s ease-in-out;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Smooth page transitions */
+.page.active {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Upcoming item hover animation */
+.upcoming-item {
+    transition: all 0.15s ease-in-out;
+}
+
+.upcoming-item:hover {
+    transform: translateX(4px);
+}
+
+/* Tag badge animation */
+.tag-badge {
+    animation: scaleIn 0.15s ease-in-out;
+}
+
+/* Modal overlay animation */
+.modal.active {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Smooth transitions for cap status */
+.cap-message {
+    transition: color 0.3s ease-in-out;
+}
+
+/* Table row hover animation */
+.tasks-table tbody tr {
+    transition: background-color 0.15s ease-in-out;
+}
+
+/* Action button animations */
+.action-btn {
+    transition: all 0.15s ease-in-out;
+}
+
+.action-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Menu toggle animation */
+.menu-toggle {
+    transition: all 0.15s ease-in-out;
+}
+
+.menu-toggle:hover span {
+    background-color: var(--color-primary);
+}
+
+/* ============================================
+   Reduced Motion Preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   Focus Visible Animations
+   ============================================ */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    animation: scaleIn 0.15s ease-in-out;
+}
+
+/* ============================================
+   Accessibility: Visible Focus States
+   ============================================ */
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+}
+
+.form-control:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.sort-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Smooth Scrolling
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ============================================
+   Page Load Animation
+   ============================================ */
+
+body {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ============================================
+   Staggered List Animations
+   ============================================ */
+
+.upcoming-list .upcoming-item:nth-child(1) {
+    animation: slideUp 0.3s ease-in-out 0.1s both;
+}
+
+.upcoming-list .upcoming-item:nth-child(2) {
+    animation: slideUp 0.3s ease-in-out 0.2s both;
+}
+
+.upcoming-list .upcoming-item:nth-child(3) {
+    animation: slideUp 0.3s ease-in-out 0.3s both;
+}
+
+.upcoming-list .upcoming-item:nth-child(n+4) {
+    animation: slideUp 0.3s ease-in-out 0.4s both;
+}
+
+/* ============================================
+   Smooth Transitions for Dynamic Content
+   ============================================ */
+
+.stat-value {
+    transition: color 0.3s ease-in-out;
+}
+
+.task-card-title {
+    transition: color 0.15s ease-in-out;
+}
+
+.task-card:hover .task-card-title {
+    color: var(--color-primary);
+}

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Campus Life Planner - Organize your tasks, events, and deadlines">
+    <title>Campus Life Planner</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <div class="logo">
+                <h1>📚 Campus Life Planner</h1>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+            <li><a href="#" data-page="dashboard" class="nav-link active">Dashboard</a></li>
+            <li><a href="#" data-page="tasks" class="nav-link">Tasks</a></li>
+            <li><a href="#" data-page="settings" class="nav-link">Settings</a></li>
+            <li><a href="#" data-page="about" class="nav-link">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main">
+        <!-- Dashboard Page -->
+        <section id="dashboard-page" class="page active" data-page="dashboard">
+            <div class="page-header">
+                <h2>Dashboard</h2>
+                <p class="subtitle">Your campus life at a glance</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Tasks</div>
+                    <div class="stat-value" id="totalTasks">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">This Week</div>
+                    <div class="stat-value" id="weekTasks">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Hours</div>
+                    <div class="stat-value" id="totalHours">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Tag</div>
+                    <div class="stat-value" id="topTag">—</div>
+                </div>
+            </div>
+
+            <!-- Cap/Target Section -->
+            <section class="cap-section" aria-live="polite" aria-label="Weekly time cap status">
+                <h3>Weekly Time Cap</h3>
+                <div class="cap-container">
+                    <div class="cap-bar">
+                        <div class="cap-progress" id="capProgress" style="width: 0%"></div>
+                    </div>
+                    <div class="cap-info">
+                        <span id="capStatus">0 / 20 hours</span>
+                        <span id="capMessage" role="status" class="cap-message"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upcoming Tasks -->
+            <section class="upcoming-section">
+                <h3>Upcoming Tasks (Next 7 Days)</h3>
+                <div id="upcomingList" class="upcoming-list">
+                    <p class="empty-state">No upcoming tasks</p>
+                </div>
+            </section>
+
+            <!-- Tag Distribution -->
+            <section class="chart-section">
+                <h3>Tasks by Tag</h3>
+                <div id="tagChart" class="tag-chart">
+                    <p class="empty-state">No data yet</p>
+                </div>
+            </section>
+        </section>
+
+        <!-- Tasks Page -->
+        <section id="tasks-page" class="page" data-page="tasks">
+            <div class="page-header">
+                <h2>Tasks</h2>
+                <button class="btn btn-primary" id="addTaskBtn">+ Add Task</button>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Search tasks (regex supported)..."
+                        aria-label="Search tasks"
+                    >
+                    <label class="case-toggle">
+                        <input type="checkbox" id="caseToggle" aria-label="Toggle case sensitivity">
+                        <span>Case Sensitive</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Sort Controls -->
+            <div class="sort-controls">
+                <button class="sort-btn" data-sort="title" aria-label="Sort by title">
+                    Title <span class="sort-icon">⇅</span>
+                </button>
+                <button class="sort-btn" data-sort="dueDate" aria-label="Sort by due date">
+                    Due Date <span class="sort-icon">⇅</span>
+                </button>
+                <button class="sort-btn" data-sort="duration" aria-label="Sort by duration">
+                    Duration <span class="sort-icon">⇅</span>
+                </button>
+            </div>
+
+            <!-- Tasks Table (Desktop) -->
+            <div class="table-wrapper">
+                <table class="tasks-table" role="grid" aria-label="Tasks list">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Tag</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasksTableBody">
+                        <tr class="empty-row">
+                            <td colspan="5" class="empty-state">No tasks yet. Add one to get started!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tasks Cards (Mobile) -->
+            <div id="tasksCardContainer" class="tasks-cards">
+                <p class="empty-state">No tasks yet. Add one to get started!</p>
+            </div>
+        </section>
+
+        <!-- Settings Page -->
+        <section id="settings-page" class="page" data-page="settings">
+            <div class="page-header">
+                <h2>Settings</h2>
+            </div>
+
+            <div class="settings-grid">
+                <!-- Unit Conversion -->
+                <section class="settings-section">
+                    <h3>Unit Conversion</h3>
+                    <div class="setting-item">
+                        <label for="unitSelect">Duration Unit:</label>
+                        <select id="unitSelect" class="form-control">
+                            <option value="minutes">Minutes</option>
+                            <option value="hours">Hours</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Weekly Cap -->
+                <section class="settings-section">
+                    <h3>Weekly Time Cap</h3>
+                    <div class="setting-item">
+                        <label for="capInput">Target Hours per Week:</label>
+                        <input 
+                            type="number" 
+                            id="capInput" 
+                            class="form-control" 
+                            min="1" 
+                            max="168" 
+                            value="20"
+                            aria-label="Weekly time cap in hours"
+                        >
+                    </div>
+                </section>
+
+                <!-- Tag Management -->
+                <section class="settings-section">
+                    <h3>Manage Tags</h3>
+                    <div id="tagsList" class="tags-list">
+                        <!-- Tags will be populated here -->
+                    </div>
+                    <div class="setting-item">
+                        <input 
+                            type="text" 
+                            id="newTagInput" 
+                            class="form-control" 
+                            placeholder="Add new tag..."
+                            aria-label="Add new tag"
+                        >
+                        <button class="btn btn-secondary" id="addTagBtn">Add Tag</button>
+                    </div>
+                </section>
+
+                <!-- Import/Export -->
+                <section class="settings-section">
+                    <h3>Data Management</h3>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" id="exportBtn">Export JSON</button>
+                        <button class="btn btn-secondary" id="importBtn">Import JSON</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                    </div>
+                </section>
+
+                <!-- Danger Zone -->
+                <section class="settings-section danger-zone">
+                    <h3>Danger Zone</h3>
+                    <button class="btn btn-danger" id="clearBtn">Clear All Data</button>
+                    <p class="help-text">This action cannot be undone.</p>
+                </section>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about-page" class="page" data-page="about">
+            <div class="page-header">
+                <h2>About Campus Life Planner</h2>
+            </div>
+
+            <div class="about-content">
+                <section class="about-section">
+                    <h3>Purpose</h3>
+                    <p>
+                        Campus Life Planner is a simple, accessible task management tool designed for college and university students. 
+                        It helps you organize your academic work, events, and personal tasks in one place, with powerful search and 
+                        filtering capabilities to keep you on top of your schedule.
+                    </p>
+                </section>
+
+                <section class="about-section">
+                    <h3>Features</h3>
+                    <ul class="feature-list">
+                        <li>📝 Create and manage tasks with titles, due dates, durations, and tags</li>
+                        <li>🔍 Search with regex patterns for advanced filtering</li>
+                        <li>📊 Dashboard with stats and upcoming tasks</li>
+                        <li>⚙️ Customizable settings and unit conversion</li>
+                        <li>💾 Automatic saving to your browser's local storage</li>
+                        <li>📥 Import and export your data as JSON</li>
+                        <li>♿ Fully accessible with keyboard navigation</li>
+                    </ul>
+                </section>
+
+                <section class="about-section">
+                    <h3>Contact & Links</h3>
+                    <div class="contact-info">
+                        <p>
+                            <strong>GitHub:</strong> 
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com/yourprofile</a>
+                        </p>
+                        <p>
+                            <strong>Email:</strong> 
+                            <a href="mailto:your.email@example.com">your.email@example.com</a>
+                        </p>
+                    </div>
+                </section>
+
+                <section class="about-section">
+                    <h3>Accessibility</h3>
+                    <p>
+                        This application is built with accessibility in mind. It supports:
+                    </p>
+                    <ul>
+                        <li>Keyboard navigation (Tab, Enter, Escape)</li>
+                        <li>Screen reader compatibility</li>
+                        <li>High color contrast (WCAG AA)</li>
+                        <li>Semantic HTML structure</li>
+                        <li>ARIA live regions for status updates</li>
+                    </ul>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Add/Edit Task -->
+    <div id="taskModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Task</h2>
+                <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+            </div>
+            <form id="taskForm" class="task-form" novalidate>
+                <div class="form-group">
+                    <label for="titleInput">Title *</label>
+                    <input 
+                        type="text" 
+                        id="titleInput" 
+                        class="form-control" 
+                        placeholder="Task title"
+                        required
+                        aria-label="Task title"
+                    >
+                    <span class="error-message" id="titleError" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateInput">Due Date *</label>
+                    <input 
+                        type="date" 
+                        id="dateInput" 
+                        class="form-control" 
+                        required
+                        aria-label="Due date"
+                    >
+                    <span class="error-message" id="dateError" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="durationInput">Duration (minutes) *</label>
+                    <input 
+                        type="text" 
+                        id="durationInput" 
+                        class="form-control" 
+                        placeholder="e.g., 120"
+                        required
+                        aria-label="Duration in minutes"
+                    >
+                    <span class="error-message" id="durationError" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="tagSelect">Tag *</label>
+                    <select id="tagSelect" class="form-control" required aria-label="Task tag">
+                        <option value="">Select a tag...</option>
+                    </select>
+                    <span class="error-message" id="tagError" role="alert"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                    <button type="button" class="btn btn-secondary" id="modalCancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scripts -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/validators.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/state.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

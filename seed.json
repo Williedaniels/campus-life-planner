@@ -1,0 +1,110 @@
+[
+  {
+    "id": "task_001",
+    "title": "Finish CS101 Assignment",
+    "dueDate": "2025-09-25",
+    "duration": "120",
+    "tag": "Academic",
+    "createdAt": "2025-09-15T10:30:00Z",
+    "updatedAt": "2025-09-15T10:30:00Z"
+  },
+  {
+    "id": "task_002",
+    "title": "Chemistry Midterm Exam",
+    "dueDate": "2025-09-28",
+    "duration": "180",
+    "tag": "Academic",
+    "createdAt": "2025-09-15T11:00:00Z",
+    "updatedAt": "2025-09-15T11:00:00Z"
+  },
+  {
+    "id": "task_003",
+    "title": "Buy textbooks for Fall semester",
+    "dueDate": "2025-09-20",
+    "duration": "45",
+    "tag": "Personal",
+    "createdAt": "2025-09-15T11:30:00Z",
+    "updatedAt": "2025-09-15T11:30:00Z"
+  },
+  {
+    "id": "task_004",
+    "title": "Attend Student Club Meeting",
+    "dueDate": "2025-09-22",
+    "duration": "60",
+    "tag": "Social",
+    "createdAt": "2025-09-15T12:00:00Z",
+    "updatedAt": "2025-09-15T12:00:00Z"
+  },
+  {
+    "id": "task_005",
+    "title": "Complete internship application",
+    "dueDate": "2025-09-30",
+    "duration": "240",
+    "tag": "Work",
+    "createdAt": "2025-09-15T12:30:00Z",
+    "updatedAt": "2025-09-15T12:30:00Z"
+  },
+  {
+    "id": "task_006",
+    "title": "Research paper outline due",
+    "dueDate": "2025-09-26",
+    "duration": "150",
+    "tag": "Academic",
+    "createdAt": "2025-09-15T13:00:00Z",
+    "updatedAt": "2025-09-15T13:00:00Z"
+  },
+  {
+    "id": "task_007",
+    "title": "Gym session and workout",
+    "dueDate": "2025-09-23",
+    "duration": "90",
+    "tag": "Personal",
+    "createdAt": "2025-09-15T13:30:00Z",
+    "updatedAt": "2025-09-15T13:30:00Z"
+  },
+  {
+    "id": "task_008",
+    "title": "Project presentation slides",
+    "dueDate": "2025-09-29",
+    "duration": "200",
+    "tag": "Academic",
+    "createdAt": "2025-09-15T14:00:00Z",
+    "updatedAt": "2025-09-15T14:00:00Z"
+  },
+  {
+    "id": "task_009",
+    "title": "Networking event at campus",
+    "dueDate": "2025-09-24",
+    "duration": "120",
+    "tag": "Work",
+    "createdAt": "2025-09-15T14:30:00Z",
+    "updatedAt": "2025-09-15T14:30:00Z"
+  },
+  {
+    "id": "task_010",
+    "title": "Review notes for biology quiz",
+    "dueDate": "2025-09-21",
+    "duration": "75",
+    "tag": "Academic",
+    "createdAt": "2025-09-15T15:00:00Z",
+    "updatedAt": "2025-09-15T15:00:00Z"
+  },
+  {
+    "id": "task_011",
+    "title": "Schedule dentist appointment",
+    "dueDate": "2025-09-27",
+    "duration": "30",
+    "tag": "Personal",
+    "createdAt": "2025-09-15T15:30:00Z",
+    "updatedAt": "2025-09-15T15:30:00Z"
+  },
+  {
+    "id": "task_012",
+    "title": "Prepare presentation for class",
+    "dueDate": "2025-09-25",
+    "duration": "180",
+    "tag": "Deadline",
+    "createdAt": "2025-09-15T16:00:00Z",
+    "updatedAt": "2025-09-15T16:00:00Z"
+  }
+]

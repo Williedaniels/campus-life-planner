@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Life Planner - Tests</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #0066cc;
+        }
+
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .test-suite {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .test-case {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .test-case.pass {
+            border-left-color: #28a745;
+            background-color: #f0f8f4;
+        }
+
+        .test-case.fail {
+            border-left-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        .test-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .test-input {
+            font-family: monospace;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-size: 13px;
+            word-break: break-all;
+        }
+
+        .test-result {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .result-label {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .result-pass {
+            color: #28a745;
+        }
+
+        .result-fail {
+            color: #dc3545;
+        }
+
+        .summary {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .stat.pass .stat-value {
+            color: #28a745;
+        }
+
+        .stat.fail .stat-value {
+            color: #dc3545;
+        }
+
+        .stat.warning .stat-value {
+            color: #ffc107;
+        }
+
+        .pattern-info {
+            background-color: #e6f0ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            word-break: break-all;
+        }
+
+        .pattern-description {
+            margin-top: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+        }
+
+        .code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .interactive-test {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #004499;
+        }
+
+        .test-output {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to App</a>
+
+        <h1>🧪 Campus Life Planner - Test Suite</h1>
+        <p>Automated tests for regex validation patterns and core functionality</p>
+
+        <!-- Summary -->
+        <div class="summary">
+            <h2>Test Summary</h2>
+            <div class="summary-stats">
+                <div class="stat pass">
+                    <div class="stat-value" id="passCount">0</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat fail">
+                    <div class="stat-value" id="failCount">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat warning">
+                    <div class="stat-value" id="totalCount">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern 1: Title Validation -->
+        <div class="test-suite">
+            <h2>Pattern 1: Title Validation</h2>
+            <div class="pattern-info">
+                /^\S(?:.*\S)?$/
+                <div class="pattern-description">
+                    Forbids leading/trailing spaces and consecutive spaces. Matches single non-whitespace char or text surrounded by non-whitespace.
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Single word</div>
+                <div class="test-input">"Assignment"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Multiple words</div>
+                <div class="test-input">"Finish CS101 Assignment"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: With punctuation</div>
+                <div class="test-input">"Study for Exam!"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Leading space</div>
+                <div class="test-input">"  Invalid"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Trailing space</div>
+                <div class="test-input">"Invalid  "</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Double spaces</div>
+                <div class="test-input">"Task  with  spaces"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern 2: Duration Validation -->
+        <div class="test-suite">
+            <h2>Pattern 2: Duration Validation</h2>
+            <div class="pattern-info">
+                /^(0|[1-9]\d*)(\.\d{1,2})?$/
+                <div class="pattern-description">
+                    Matches positive integers or decimals with up to 2 decimal places. Rejects negative numbers, leading zeros (except 0), or more than 2 decimals.
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Whole number</div>
+                <div class="test-input">"120"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: One decimal place</div>
+                <div class="test-input">"90.5"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Two decimal places</div>
+                <div class="test-input">"45.75"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Zero</div>
+                <div class="test-input">"0"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Negative number</div>
+                <div class="test-input">"-10"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Non-numeric</div>
+                <div class="test-input">"abc"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Three decimal places</div>
+                <div class="test-input">"12.345"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Leading zero</div>
+                <div class="test-input">"090"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern 3: Date Validation -->
+        <div class="test-suite">
+            <h2>Pattern 3: Date Validation</h2>
+            <div class="pattern-info">
+                /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/
+                <div class="pattern-description">
+                    Matches YYYY-MM-DD format with valid month (01-12) and day (01-31). Rejects invalid dates like 2025-13-01 or 2025-00-15.
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Standard date</div>
+                <div class="test-input">"2025-09-29"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: January 1st</div>
+                <div class="test-input">"2025-01-01"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: December 31st</div>
+                <div class="test-input">"2025-12-31"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Wrong format (DD-MM-YYYY)</div>
+                <div class="test-input">"29-09-2025"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Invalid month</div>
+                <div class="test-input">"2025-13-01"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Invalid day</div>
+                <div class="test-input">"2025-09-32"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Zero month</div>
+                <div class="test-input">"2025-00-15"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern 4: Tag Validation -->
+        <div class="test-suite">
+            <h2>Pattern 4: Tag Validation</h2>
+            <div class="pattern-info">
+                /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/
+                <div class="pattern-description">
+                    Matches tags with letters, spaces, and hyphens. Must start and end with a letter. Rejects numbers, special characters, or leading/trailing spaces.
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Single word</div>
+                <div class="test-input">"Academic"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Multiple words</div>
+                <div class="test-input">"Computer Science"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Valid: Hyphenated</div>
+                <div class="test-input">"Work-Related"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-pass">PASS</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Contains numbers</div>
+                <div class="test-input">"Tag123"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Special characters</div>
+                <div class="test-input">"Tag@Work"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ Invalid: Leading space</div>
+                <div class="test-input">" Academic"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">FAIL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern 5: Duplicate Word Detection (Advanced) -->
+        <div class="test-suite">
+            <h2>Pattern 5: Duplicate Word Detection (Advanced)</h2>
+            <div class="pattern-info">
+                /\b(\w+)\s+\1\b/i
+                <div class="pattern-description">
+                    Advanced pattern using back-reference. Detects repeated consecutive words (case-insensitive). Uses \1 to reference the first captured group.
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Detects: Duplicate word</div>
+                <div class="test-input">"finish finish assignment"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected Match:</span>
+                    <span class="result-pass">"finish finish"</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Detects: Case-insensitive duplicate</div>
+                <div class="test-input">"The THE task"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected Match:</span>
+                    <span class="result-pass">"The THE"</span>
+                </div>
+            </div>
+
+            <div class="test-case pass">
+                <div class="test-title">✓ Detects: Multiple duplicates</div>
+                <div class="test-input">"hello hello world world"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected Matches:</span>
+                    <span class="result-pass">"hello hello", "world world"</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ No match: Different words</div>
+                <div class="test-input">"finish task"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">NO MATCH</span>
+                </div>
+            </div>
+
+            <div class="test-case fail">
+                <div class="test-title">✗ No match: Single occurrence</div>
+                <div class="test-input">"assignment"</div>
+                <div class="test-result">
+                    <span class="result-label">Expected:</span>
+                    <span class="result-fail">NO MATCH</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Regex Tester -->
+        <div class="interactive-test">
+            <h2>Interactive Regex Tester</h2>
+            <div class="form-group">
+                <label for="patternSelect">Select Pattern:</label>
+                <select id="patternSelect">
+                    <option value="title">Title (no leading/trailing spaces)</option>
+                    <option value="duration">Duration (positive number)</option>
+                    <option value="date">Date (YYYY-MM-DD)</option>
+                    <option value="tag">Tag (letters, spaces, hyphens)</option>
+                    <option value="duplicateWord">Duplicate Word Detection</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="testInput">Test Input:</label>
+                <input type="text" id="testInput" placeholder="Enter text to test...">
+            </div>
+
+            <button onclick="runInteractiveTest()">Test Pattern</button>
+
+            <div id="testOutput" class="test-output" style="display: none;"></div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="test-suite">
+            <h2>Test Execution Results</h2>
+            <p>All tests are automated and run on page load.</p>
+            <div id="testResults"></div>
+        </div>
+    </div>
+
+    <script src="scripts/validators.js"></script>
+    <script>
+        // Run all tests
+        function runAllTests() {
+            let passed = 0;
+            let failed = 0;
+
+            // Test Pattern 1: Title
+            const titleTests = [
+                { input: 'Assignment', expected: true },
+                { input: 'Finish CS101 Assignment', expected: true },
+                { input: 'Study for Exam!', expected: true },
+                { input: '  Invalid', expected: false },
+                { input: 'Invalid  ', expected: false },
+                { input: 'Task  with  spaces', expected: false }
+            ];
+
+            titleTests.forEach(test => {
+                const result = validators.patterns.title.test(test.input);
+                if (result === test.expected) passed++;
+                else failed++;
+            });
+
+            // Test Pattern 2: Duration
+            const durationTests = [
+                { input: '120', expected: true },
+                { input: '90.5', expected: true },
+                { input: '45.75', expected: true },
+                { input: '0', expected: true },
+                { input: '-10', expected: false },
+                { input: 'abc', expected: false },
+                { input: '12.345', expected: false },
+                { input: '090', expected: false }
+            ];
+
+            durationTests.forEach(test => {
+                const result = validators.patterns.duration.test(test.input);
+                if (result === test.expected) passed++;
+                else failed++;
+            });
+
+            // Test Pattern 3: Date
+            const dateTests = [
+                { input: '2025-09-29', expected: true },
+                { input: '2025-01-01', expected: true },
+                { input: '2025-12-31', expected: true },
+                { input: '29-09-2025', expected: false },
+                { input: '2025-13-01', expected: false },
+                { input: '2025-09-32', expected: false },
+                { input: '2025-00-15', expected: false }
+            ];
+
+            dateTests.forEach(test => {
+                const result = validators.patterns.date.test(test.input);
+                if (result === test.expected) passed++;
+                else failed++;
+            });
+
+            // Test Pattern 4: Tag
+            const tagTests = [
+                { input: 'Academic', expected: true },
+                { input: 'Computer Science', expected: true },
+                { input: 'Work-Related', expected: true },
+                { input: 'Tag123', expected: false },
+                { input: 'Tag@Work', expected: false },
+                { input: ' Academic', expected: false }
+            ];
+
+            tagTests.forEach(test => {
+                const result = validators.patterns.tag.test(test.input);
+                if (result === test.expected) passed++;
+                else failed++;
+            });
+
+            // Test Pattern 5: Duplicate Words
+            const duplicateTests = [
+                { input: 'finish finish assignment', expected: true },
+                { input: 'The THE task', expected: true },
+                { input: 'hello hello world world', expected: true },
+                { input: 'finish task', expected: false },
+                { input: 'assignment', expected: false }
+            ];
+
+            duplicateTests.forEach(test => {
+                const result = validators.patterns.duplicateWord.test(test.input);
+                if (result === test.expected) passed++;
+                else failed++;
+            });
+
+            // Update summary
+            const total = passed + failed;
+            document.getElementById('passCount').textContent = passed;
+            document.getElementById('failCount').textContent = failed;
+            document.getElementById('totalCount').textContent = total;
+        }
+
+        // Interactive test function
+        function runInteractiveTest() {
+            const patternSelect = document.getElementById('patternSelect');
+            const testInput = document.getElementById('testInput');
+            const testOutput = document.getElementById('testOutput');
+
+            const pattern = patternSelect.value;
+            const input = testInput.value;
+
+            if (!input) {
+                testOutput.textContent = 'Please enter test input';
+                testOutput.style.display = 'block';
+                return;
+            }
+
+            let regex = validators.patterns[pattern];
+            let result = regex.test(input);
+            let matches = [];
+
+            if (pattern === 'duplicateWord') {
+                const matchArray = input.match(regex);
+                matches = matchArray || [];
+            }
+
+            let output = `Pattern: ${regex}\n`;
+            output += `Input: "${input}"\n`;
+            output += `Result: ${result ? 'MATCH' : 'NO MATCH'}\n`;
+
+            if (matches.length > 0) {
+                output += `Matches: ${matches.join(', ')}\n`;
+            }
+
+            testOutput.textContent = output;
+            testOutput.style.display = 'block';
+        }
+
+        // Run tests on page load
+        window.addEventListener('load', runAllTests);
+    </script>
+</body>
+</html>
