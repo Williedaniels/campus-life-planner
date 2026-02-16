@@ -308,6 +308,20 @@ const ui = (() => {
 
         if (unitSelect) unitSelect.value = settings.unit || 'minutes';
         if (capInput) capInput.value = settings.weeklyCap || 20;
+
+        updateThemeToggle();
+    };
+
+    /**
+     * Update theme toggle state
+     */
+    const updateThemeToggle = () => {
+        const settings = state.getSettings();
+        const themeToggle = document.getElementById('themeToggle');
+
+        if (themeToggle) {
+            themeToggle.checked = settings.theme === 'dark';
+        }
     };
 
     /**
@@ -397,6 +411,7 @@ const ui = (() => {
         hideTaskModal,
         showPage,
         updateSettingsForm,
+        updateThemeToggle,
         clearFormErrors,
         showFormErrors,
         toggleMenu,

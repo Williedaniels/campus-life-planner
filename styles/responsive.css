@@ -310,8 +310,18 @@
 }
 
 /* ============================================
-   Dark Mode Support (Optional)
+   Theme Support
    ============================================ */
+
+[data-theme='light'] {
+    --color-background: #f8f9fa;
+    --color-card: #ffffff;
+    --color-text: #1a1a1a;
+    --color-text-light: #666666;
+    --color-border: #e0e0e0;
+    --color-primary-light: #e6f0ff;
+    --color-error-light: #fff5f5;
+}
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -323,6 +333,16 @@
         --color-primary-light: #1a3a5a;
         --color-error-light: #3a1a1a;
     }
+}
+
+[data-theme='dark'] {
+    --color-background: #1a1a1a;
+    --color-card: #2a2a2a;
+    --color-text: #f0f0f0;
+    --color-text-light: #b0b0b0;
+    --color-border: #404040;
+    --color-primary-light: #1a3a5a;
+    --color-error-light: #3a1a1a;
 }
 
 /* ============================================

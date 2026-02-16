@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize state
     state.init();
 
+    // Apply theme
+    setupTheme();
+
     // Render initial page
     ui.showPage('dashboard');
 
@@ -45,6 +48,9 @@ function setupEventListeners() {
 
     // Menu toggle
     setupMenuListeners();
+
+    // Theme toggle
+    setupThemeListeners();
 }
 
 /**
@@ -391,6 +397,44 @@ function setupMenuListeners() {
     });
 }
 
+/**
+ * Setup theme toggle listeners
+ */
+function setupThemeListeners() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('change', () => {
+            const isChecked = themeToggle.checked;
+            const theme = isChecked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            state.updateSettings({ theme });
+        });
+    }
+}
+
+/**
+ * Set initial theme
+ */
+function setupTheme() {
+    const settings = state.getSettings();
+    const savedTheme = settings.theme;
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
+    } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = prefersDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        if (themeToggle) {
+            themeToggle.checked = prefersDark;
+        }
+    }
+}
+
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -401,6 +445,8 @@ if (typeof module !== 'undefined' && module.exports) {
         setupSettingsListeners,
         setupSearchListeners,
         setupSortListeners,
-        setupMenuListeners
+        setupMenuListeners,
+        setupThemeListeners,
+        setupTheme
     };
 }
